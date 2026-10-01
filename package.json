@@ -14,5 +14,8 @@
     "dev:lab3": "npm run dev --workspace=@fer202/lab3",
     "test": "npm run test --workspaces --if-present",
     "build": "node scripts/build-all.mjs"
+  },
+  "devDependencies": {
+    "jsdom": "29.0.1"
   }
 }
