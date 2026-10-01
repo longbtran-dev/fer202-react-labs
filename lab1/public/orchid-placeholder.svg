@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 720" role="img" aria-labelledby="title desc">
+  <title id="title">Orchid image placeholder</title>
+  <desc id="desc">A stylized orchid flower on a soft botanical background</desc>
+  <rect width="960" height="720" fill="#dfe7dd"/>
+  <circle cx="480" cy="360" r="68" fill="#cf5f8f"/>
+  <ellipse cx="480" cy="220" rx="115" ry="150" fill="#f1b6cd" transform="rotate(-8 480 220)"/>
+  <ellipse cx="650" cy="330" rx="115" ry="150" fill="#e49abb" transform="rotate(72 650 330)"/>
+  <ellipse cx="580" cy="520" rx="115" ry="150" fill="#f1b6cd" transform="rotate(145 580 520)"/>
+  <ellipse cx="380" cy="520" rx="115" ry="150" fill="#e49abb" transform="rotate(215 380 520)"/>
+  <ellipse cx="310" cy="330" rx="115" ry="150" fill="#f1b6cd" transform="rotate(288 310 330)"/>
+  <circle cx="480" cy="360" r="34" fill="#f4f0e8"/>
+</svg>
