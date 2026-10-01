@@ -6,7 +6,7 @@
 
 **Architecture:** The repository is an npm-workspaces monorepo containing three independent Vite applications. Each lab owns its data and components so it can run alone; a root Node script builds the three apps into one Pages artifact, while a static portal links to each lab.
 
-**Tech Stack:** React 19.3.0, React DOM 19.3.0, Vite 8.3.2, React Bootstrap 2.10.10, Bootstrap 5.3.8, Vitest 5.0.3, Testing Library, jsdom 30.1.1, GitHub Actions, GitHub Pages.
+**Tech Stack:** React 19.3.0, React DOM 19.3.0, Vite 8.3.2, React Bootstrap 2.10.10, Bootstrap 5.3.8, Vitest 5.0.3, Testing Library, jsdom 29.0.1, GitHub Actions, GitHub Pages.
 
 **Spec:** `docs/superpowers/specs/2026-10-02-fer202-react-labs-design.md`
 
@@ -99,7 +99,7 @@ Use this dependency baseline in all three packages:
     "@testing-library/react": "16.3.3",
     "@testing-library/user-event": "14.6.7",
     "@vitejs/plugin-react": "6.1.1",
-    "jsdom": "30.1.1",
+    "jsdom": "29.0.1",
     "vite": "8.3.2",
     "vitest": "5.0.3"
   }
