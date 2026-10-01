@@ -203,7 +203,7 @@ Expected: FAIL because `lab1/src/App.jsx` does not exist.
 
 - [ ] **Step 3: Add the exact 16-record orchid dataset**
 
-Create `lab1/src/data/ListOfOrchids.js` exporting `orchids`. Use `https://loremflickr.com/960/720/orchid?lock=<id>` for each image and these records:
+Create `lab1/src/data/ListOfOrchids.js` exporting `orchids`. Add a small `createOrchidImage(petal, shadow, center, rotation)` helper that returns an encoded SVG data URI, then give each record a distinct palette so the gallery is self-contained and deterministic:
 
 | id | name | rating | special | color | origin | category |
 |---:|---|---:|:---:|---|---|---|

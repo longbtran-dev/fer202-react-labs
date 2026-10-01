@@ -14,7 +14,7 @@ Kết quả cần đạt: hiểu cách chia giao diện thành các component nh
 - Dữ liệu nằm trong `ListOfOrchids.js`.
 - Dùng `map()` để lặp dữ liệu.
 - Tách Container component và Presentation component.
-- Ảnh dùng URL, có ảnh fallback nếu URL lỗi.
+- Ảnh dùng SVG data URI tự chứa, có file fallback nếu dữ liệu ảnh lỗi.
 - Giao diện responsive và đánh dấu orchid đặc biệt.
 
 ## Kiến thức được vận dụng
@@ -88,7 +88,7 @@ Không component nào dùng state trong lab này. Khi React render `App`, dữ l
 | `src/components/OrchidCard.jsx` | Trình bày một orchid và xử lý ảnh lỗi |
 | `src/App.test.jsx` | Kiểm tra đủ 16 cards và dữ liệu tiêu biểu |
 | `src/styles.css` | Responsive layout và visual system |
-| `public/orchid-placeholder.svg` | Ảnh thay thế khi URL bên ngoài lỗi |
+| `public/orchid-placeholder.svg` | Ảnh thay thế nếu dữ liệu ảnh không đọc được |
 
 ## Chạy Lab 1
 

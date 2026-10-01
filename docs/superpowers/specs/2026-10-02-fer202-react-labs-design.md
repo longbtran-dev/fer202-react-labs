@@ -91,7 +91,7 @@ Mỗi lab giữ một bản `ListOfOrchids.js` riêng để thực sự độc l
 }
 ```
 
-Ảnh sử dụng URL HTTPS ổn định từ nguồn ảnh công khai. Component có fallback trực quan khi ảnh tải lỗi để một URL hỏng không phá bố cục.
+Ảnh được tạo dưới dạng SVG data URI tự chứa trong `ListOfOrchids.js`, với palette khác nhau cho từng orchid. Cách này giữ mỗi lab độc lập, không phụ thuộc mạng và vẫn có fallback trực quan nếu dữ liệu ảnh bị lỗi.
 
 ## Thành phần và luồng dữ liệu
 
