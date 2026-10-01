@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="FER202 React Labs: Components, useState, Context và Effect" />
+    <link rel="stylesheet" href="./styles.css" />
+    <title>FER202 · React Labs</title>
+  </head>
+  <body>
+    <div class="page-shell">
+      <nav class="topbar" aria-label="Điều hướng chính">
+        <a class="brand" href="./"><span aria-hidden="true">✿</span> FER202 Labs</a>
+        <a class="repo-link" href="https://github.com/longbtran-dev/fer202-react-labs">Xem source trên GitHub <span aria-hidden="true">↗</span></a>
+      </nav>
+
+      <header class="hero">
+        <div class="hero__copy">
+          <p class="eyebrow">React learning path · 03 labs</p>
+          <h1>Từ component nhỏ đến state dùng chung.</h1>
+          <p class="hero__intro">
+            Ba bài lab độc lập, cùng một bộ dữ liệu orchids. Mỗi bước thêm đúng một lớp kiến thức để bạn thấy React phát triển từ giao diện tĩnh thành ứng dụng có trạng thái và ghi nhớ lựa chọn.
+          </p>
+        </div>
+        <aside class="hero__index" aria-label="Lộ trình kiến thức">
+          <p>Learning sequence</p>
+          <ol>
+            <li>Compose</li>
+            <li>Interact</li>
+            <li>Share & persist</li>
+          </ol>
+        </aside>
+      </header>
+
+      <main>
+        <section class="labs" aria-labelledby="labs-title">
+          <div class="section-heading">
+            <p class="eyebrow">Chọn bài thực hành</p>
+            <h2 id="labs-title">Một collection, ba cấp độ.</h2>
+          </div>
+
+          <div class="lab-grid">
+            <article class="lab-card lab-card--one">
+              <div class="lab-card__number">01</div>
+              <div class="lab-card__content">
+                <p class="lab-card__type">React Components</p>
+                <h3>Chia giao diện thành các khối có trách nhiệm rõ ràng.</h3>
+                <p>Render 16 orchids bằng props, `map()`, `key` và mô hình Container/Presentation.</p>
+                <ul aria-label="Kiến thức Lab 1">
+                  <li>Components</li><li>Props</li><li>map()</li>
+                </ul>
+                <a href="./lab1/">Mở Lab 1 <span aria-hidden="true">↗</span></a>
+              </div>
+            </article>
+
+            <article class="lab-card lab-card--two">
+              <div class="lab-card__number">02</div>
+              <div class="lab-card__content">
+                <p class="lab-card__type">State Hook</p>
+                <h3>Biến thao tác click thành một thay đổi có thể quan sát.</h3>
+                <p>Chọn orchid bằng `useState` và hiển thị dữ liệu trong React Bootstrap Modal.</p>
+                <ul aria-label="Kiến thức Lab 2">
+                  <li>useState</li><li>Events</li><li>Modal</li>
+                </ul>
+                <a href="./lab2/">Mở Lab 2 <span aria-hidden="true">↗</span></a>
+              </div>
+            </article>
+
+            <article class="lab-card lab-card--three">
+              <div class="lab-card__number">03</div>
+              <div class="lab-card__content">
+                <p class="lab-card__type">Context & Effect</p>
+                <h3>Chia sẻ trạng thái và giữ lại lựa chọn qua mỗi lần tải trang.</h3>
+                <p>Đăng nhập giả, light/dark theme, custom hook và đồng bộ `localStorage`.</p>
+                <ul aria-label="Kiến thức Lab 3">
+                  <li>Context</li><li>useEffect</li><li>Persistence</li>
+                </ul>
+                <a href="./lab3/">Mở Lab 3 <span aria-hidden="true">↗</span></a>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="method" aria-labelledby="method-title">
+          <p class="eyebrow">Cách học đề xuất</p>
+          <h2 id="method-title">Đọc code theo luồng dữ liệu, không theo thứ tự file.</h2>
+          <div class="method__steps">
+            <p><span>01</span>Bắt đầu từ hành vi người dùng hoặc dữ liệu đầu vào.</p>
+            <p><span>02</span>Theo props, event hoặc context qua từng component.</p>
+            <p><span>03</span>Chạy test để xem yêu cầu được mô tả bằng hành vi.</p>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p>FER202 · React Labs 1–3</p>
+        <p>Components → State → Context & Effect</p>
+      </footer>
+    </div>
+  </body>
+</html>
