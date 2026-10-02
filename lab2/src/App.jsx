@@ -1,5 +1,7 @@
 import OrchidsContainer from './components/OrchidsContainer';
 
+// App chịu trách nhiệm bố cục cấp trang. State chọn orchid được đặt thấp hơn,
+// trong component cha gần nhất của danh sách và modal.
 export default function App() {
   return (
     <div className="app-shell">
@@ -20,6 +22,7 @@ export default function App() {
       </header>
 
       <main id="orchid-gallery">
+        {/* Container bên trong sẽ nối thao tác click của card với modal. */}
         <OrchidsContainer />
       </main>
 

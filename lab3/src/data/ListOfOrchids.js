@@ -1,3 +1,5 @@
+// Ảnh SVG data URI giữ demo độc lập với mạng; phần Context/Effect của Lab 3
+// không phụ thuộc cách ảnh được tạo ra.
 function createOrchidImage(petal, shadow, center, rotation) {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 720">
     <defs>
@@ -32,6 +34,7 @@ function createOrchidImage(petal, shadow, center, rotation) {
   return `data:image/svg+xml,${encodeURIComponent(svg)}`;
 }
 
+// Dữ liệu orchid giữ nguyên để người học tập trung vào global state và effect.
 export const orchids = [
   { id: 1, name: 'Taichung Beauty', rating: 5, isSpecial: true, image: createOrchidImage('#ef91ba', '#a94072', '#f5cc62', -8), color: 'Pink', origin: 'Taiwan', category: 'Cattleya' },
   { id: 2, name: 'Moon Orchid', rating: 5, isSpecial: true, image: createOrchidImage('#fff9ee', '#b9a9c4', '#f1c95b', 4), color: 'White', origin: 'Indonesia', category: 'Phalaenopsis' },

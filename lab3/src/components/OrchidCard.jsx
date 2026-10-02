@@ -1,7 +1,9 @@
+// BASE_URL giúp file fallback hoạt động với base path khi deploy GitHub Pages.
 const fallbackImage = `${import.meta.env.BASE_URL}orchid-placeholder.svg`;
 
 export default function OrchidCard({ orchid, onViewDetails }) {
   function showFallback(event) {
+    // currentTarget là đúng thẻ img đã phát sinh lỗi tải ảnh.
     event.currentTarget.onerror = null;
     event.currentTarget.src = fallbackImage;
   }
@@ -30,6 +32,7 @@ export default function OrchidCard({ orchid, onViewDetails }) {
           <div><dt>Color</dt><dd>{orchid.color}</dd></div>
         </dl>
 
+        {/* Callback gửi object hiện tại lên container khi người dùng click. */}
         <button
           className="detail-button"
           type="button"

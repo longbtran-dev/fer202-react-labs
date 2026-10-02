@@ -1,6 +1,8 @@
 import AppNavbar from './components/AppNavbar';
 import OrchidsContainer from './components/OrchidsContainer';
 
+// Navbar dùng state toàn cục từ Context; gallery vẫn giữ selectedOrchid ở state
+// cục bộ vì lựa chọn đó chỉ phục vụ danh sách và modal.
 export default function App() {
   return (
     <div className="app-shell" id="top">

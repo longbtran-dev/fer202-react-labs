@@ -1,7 +1,9 @@
+// BASE_URL giữ đường dẫn fallback đúng ở cả localhost và GitHub Pages.
 const fallbackImage = `${import.meta.env.BASE_URL}orchid-placeholder.svg`;
 
 export default function OrchidCard({ orchid, onViewDetails }) {
   function showFallback(event) {
+    // Khi ảnh lỗi, đổi src của chính thẻ img sang file dự phòng cục bộ.
     event.currentTarget.onerror = null;
     event.currentTarget.src = fallbackImage;
   }
@@ -30,6 +32,8 @@ export default function OrchidCard({ orchid, onViewDetails }) {
           <div><dt>Color</dt><dd>{orchid.color}</dd></div>
         </dl>
 
+        {/* Arrow function trì hoãn lời gọi đến lúc click và gửi đúng object
+            của card hiện tại lên component đang sở hữu state. */}
         <button
           className="detail-button"
           type="button"

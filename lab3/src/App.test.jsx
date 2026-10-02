@@ -4,6 +4,8 @@ import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import App from './App';
 import AuthProvider from './context/AuthProvider';
 
+// Test phải tạo cùng cây Provider như main.jsx; nếu render App một mình,
+// useAuth() trong navbar sẽ không tìm thấy Context value.
 function renderApp() {
   return render(
     <AuthProvider>
@@ -14,6 +16,7 @@ function renderApp() {
 
 describe('Lab 3 global state', () => {
   beforeEach(() => {
+    // Mỗi test bắt đầu từ trạng thái trình duyệt sạch để không ảnh hưởng nhau.
     localStorage.clear();
     delete document.documentElement.dataset.theme;
   });
@@ -26,6 +29,7 @@ describe('Lab 3 global state', () => {
 
     await user.click(screen.getByRole('button', { name: 'Log in as Aaron' }));
     expect(screen.getByText('Welcome, Aaron')).toBeInTheDocument();
+    // localStorage được ghi trong useEffect sau render, nên chờ effect hoàn tất.
     await waitFor(() => {
       expect(JSON.parse(localStorage.getItem('fer202-lab3-user'))).toEqual({ username: 'Aaron' });
     });
@@ -45,6 +49,7 @@ describe('Lab 3 global state', () => {
   });
 
   it('restores valid user and theme values on startup', () => {
+    // Ghi dữ liệu trước khi render để kiểm tra lazy initializer đọc lại storage.
     localStorage.setItem('fer202-lab3-user', JSON.stringify({ username: 'Aaron' }));
     localStorage.setItem('fer202-lab3-theme', 'dark');
 

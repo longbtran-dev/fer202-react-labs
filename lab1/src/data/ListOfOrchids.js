@@ -1,3 +1,5 @@
+// Hàm này tạo ảnh SVG thành data URI để bài lab chạy độc lập, không cần gọi
+// máy chủ ảnh. Đây là dữ liệu demo; trọng tâm React bắt đầu ở mảng orchids bên dưới.
 function createOrchidImage(petal, shadow, center, rotation) {
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 720">
     <defs>
@@ -32,6 +34,8 @@ function createOrchidImage(petal, shadow, center, rotation) {
   return `data:image/svg+xml,${encodeURIComponent(svg)}`;
 }
 
+// Tách dữ liệu khỏi JSX giúp thêm/sửa orchid mà không sao chép markup của card.
+// Mỗi object dùng cùng một schema để component có thể render bằng map().
 export const orchids = [
   { id: 1, name: 'Taichung Beauty', rating: 5, isSpecial: true, image: createOrchidImage('#ef91ba', '#a94072', '#f5cc62', -8), color: 'Pink', origin: 'Taiwan', category: 'Cattleya' },
   { id: 2, name: 'Moon Orchid', rating: 5, isSpecial: true, image: createOrchidImage('#fff9ee', '#b9a9c4', '#f1c95b', 4), color: 'White', origin: 'Indonesia', category: 'Phalaenopsis' },

@@ -1,5 +1,7 @@
 import OrchidsContainer from './components/OrchidsContainer';
 
+// App chỉ ghép các khu vực lớn của trang. OrchidsContainer lấy/cung cấp dữ liệu,
+// còn OrchidsPresentation và OrchidCard chịu trách nhiệm render dữ liệu đó.
 export default function App() {
   return (
     <div className="app-shell">
@@ -20,6 +22,7 @@ export default function App() {
       </header>
 
       <main id="orchid-gallery">
+        {/* Dùng component giống một thẻ HTML tự định nghĩa. */}
         <OrchidsContainer />
       </main>
 

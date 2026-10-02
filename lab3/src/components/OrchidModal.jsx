@@ -4,14 +4,17 @@ import Modal from 'react-bootstrap/Modal';
 
 const fallbackImage = `${import.meta.env.BASE_URL}orchid-placeholder.svg`;
 
+// Modal là component nhận props: nó không biết state được lưu ở đâu.
 export default function OrchidModal({ orchid, onClose }) {
   function showFallback(event) {
     event.currentTarget.onerror = null;
     event.currentTarget.src = fallbackImage;
   }
 
+  // Có object thì mở, null thì đóng; UI được suy ra từ một nguồn state duy nhất.
   return (
     <Modal show={Boolean(orchid)} onHide={onClose} centered animation={false} contentClassName="orchid-modal">
+      {/* Điều kiện ngăn truy cập orchid.name khi orchid đang là null. */}
       {orchid && (
         <>
           <div className="orchid-modal__image-wrap">

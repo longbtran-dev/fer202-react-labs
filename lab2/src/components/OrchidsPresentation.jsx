@@ -1,5 +1,7 @@
 import OrchidCard from './OrchidCard';
 
+// Presentation không sở hữu state. Nó nhận callback từ container rồi chuyển
+// callback đó xuống từng card để card có thể báo orchid nào được click.
 export default function OrchidsPresentation({ orchids, onViewDetails }) {
   return (
     <section className="collection" aria-labelledby="collection-title">
@@ -12,6 +14,7 @@ export default function OrchidsPresentation({ orchids, onViewDetails }) {
       </div>
 
       <div className="orchid-grid">
+        {/* Mỗi card nhận cùng một callback nhưng nhận một object orchid khác nhau. */}
         {orchids.map((orchid) => (
           <OrchidCard key={orchid.id} orchid={orchid} onViewDetails={onViewDetails} />
         ))}
