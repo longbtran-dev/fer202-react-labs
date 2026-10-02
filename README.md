@@ -19,6 +19,34 @@ Bộ ba bài thực hành React được xây dựng từ đề FER202, tách th
 | [Lab 2](./lab2/README.md) | Bấm một card để xem chi tiết trong modal | `useState`, event callback, state lifting, derived UI, React Bootstrap Modal |
 | [Lab 3](./lab3/README.md) | Đăng nhập giả, đổi theme và ghi nhớ trạng thái | Context, Provider, `useContext`, custom hook, `useEffect`, lazy state, `localStorage` |
 
+## Lộ trình học dành cho người mới
+
+Nên học theo đúng thứ tự vì mỗi lab sử dụng lại kiến thức của lab trước:
+
+1. **Lab 1 — Dữ liệu đi xuống:** học cách React tạo giao diện từ component, props và mảng dữ liệu.
+2. **Lab 2 — Sự kiện đi lên:** học cách một lần click cập nhật state rồi làm giao diện render lại.
+3. **Lab 3 — Chia sẻ và ghi nhớ state:** học Context, custom hook, effect và `localStorage`.
+
+Trước khi bắt đầu, bạn chỉ cần biết JavaScript cơ bản: biến `const`, function, object, array, destructuring, `map()`, arrow function, import/export và điều kiện. Chưa cần biết backend.
+
+### Cách học mỗi lab
+
+1. Mở demo để biết kết quả cuối cùng cần tạo ra.
+2. Đọc phần **Mục tiêu** và **Bản đồ kiến thức** trong README của lab.
+3. Đọc source theo thứ tự được hướng dẫn, bắt đầu từ `src/main.jsx`.
+4. Chạy ứng dụng và dùng React DevTools hoặc `console.log` để quan sát props/state.
+5. Tự trả lời từng câu hỏi lý thuyết, sau đó so sánh với câu trả lời đặt ngay bên dưới.
+6. Làm ít nhất một bài thực hành nhỏ rồi chạy test để kiểm tra.
+
+### Quy tắc quan trọng xuyên suốt ba lab
+
+```text
+Props đi từ component cha xuống component con.
+Sự kiện thường được component con báo ngược lên bằng callback.
+State thay đổi → React render lại → giao diện mới được tính từ state mới.
+Effect chạy sau render để đồng bộ với hệ thống bên ngoài React.
+```
+
 ## Cấu trúc repository
 
 ```text
