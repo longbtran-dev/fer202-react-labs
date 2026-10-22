@@ -6,12 +6,16 @@
   "workspaces": [
     "lab1",
     "lab2",
-    "lab3"
+    "lab3",
+    "lab4",
+    "lab5"
   ],
   "scripts": {
     "dev:lab1": "npm run dev --workspace=@fer202/lab1",
     "dev:lab2": "npm run dev --workspace=@fer202/lab2",
     "dev:lab3": "npm run dev --workspace=@fer202/lab3",
+    "dev:lab4": "npm run dev --workspace=@fer202/lab4",
+    "dev:lab5": "npm run dev --workspace=@fer202/lab5",
     "test": "npm run test --workspaces --if-present",
     "build": "node scripts/build-all.mjs"
   },

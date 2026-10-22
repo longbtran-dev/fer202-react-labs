@@ -3,9 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="FER202 React Labs: Components, useState, Context và Effect" />
+    <meta name="description" content="FER202 React Labs 1–5: Components, useState, Context/Effect, useReducer, React Router, Formik & Yup" />
     <link rel="stylesheet" href="./styles.css" />
-    <title>FER202 · React Labs</title>
+    <title>FER202 · React Labs 1–5</title>
   </head>
   <body>
     <div class="page-shell">
@@ -16,18 +16,20 @@
 
       <header class="hero">
         <div class="hero__copy">
-          <p class="eyebrow">React learning path · 03 labs</p>
-          <h1>Từ component nhỏ đến state dùng chung.</h1>
+          <p class="eyebrow">React learning path · 05 labs</p>
+          <h1>Từ component nhỏ đến SPA hoàn chỉnh.</h1>
           <p class="hero__intro">
-            Ba bài lab độc lập, cùng một bộ dữ liệu orchids. Mỗi bước thêm đúng một lớp kiến thức để bạn thấy React phát triển từ giao diện tĩnh thành ứng dụng có trạng thái và ghi nhớ lựa chọn.
+            Năm bài lab độc lập, cùng một hệ sinh thái dữ liệu orchids. Mỗi bước thêm đúng một lớp kiến thức để bạn thấy React phát triển từ giao diện tĩnh đến quản lý giỏ hàng phức tạp, định tuyến nhiều trang và kiểm tra biểu mẫu bằng Formik & Yup.
           </p>
         </div>
         <aside class="hero__index" aria-label="Lộ trình kiến thức">
           <p>Learning sequence</p>
           <ol>
-            <li>Compose</li>
-            <li>Interact</li>
-            <li>Share & persist</li>
+            <li>Compose (Components)</li>
+            <li>Interact (useState)</li>
+            <li>Share & Persist (Context)</li>
+            <li>Reduce & Validate (Lab 4)</li>
+            <li>Route & Connect (Lab 5)</li>
           </ol>
         </aside>
       </header>
@@ -36,7 +38,7 @@
         <section class="labs" aria-labelledby="labs-title">
           <div class="section-heading">
             <p class="eyebrow">Chọn bài thực hành</p>
-            <h2 id="labs-title">Một collection, ba cấp độ.</h2>
+            <h2 id="labs-title">Một collection, năm cấp độ.</h2>
           </div>
 
           <div class="lab-grid">
@@ -78,6 +80,32 @@
                 <a href="./lab3/">Mở Lab 3 <span aria-hidden="true">↗</span></a>
               </div>
             </article>
+
+            <article class="lab-card lab-card--four">
+              <div class="lab-card__number">04</div>
+              <div class="lab-card__content">
+                <p class="lab-card__type">useReducer · Formik & Yup</p>
+                <h3>Quản lý giỏ hàng có cấu trúc và xác thực đơn hàng chặt chẽ.</h3>
+                <p>Thêm/xóa sản phẩm, cập nhật số lượng bằng `useReducer`, kiểm tra biểu mẫu Checkout với `Formik` + `Yup` và hiển thị xác nhận đơn hàng.</p>
+                <ul aria-label="Kiến thức Lab 4">
+                  <li>useReducer</li><li>Formik</li><li>Yup Schema</li>
+                </ul>
+                <a href="./lab4/">Mở Lab 4 <span aria-hidden="true">↗</span></a>
+              </div>
+            </article>
+
+            <article class="lab-card lab-card--five">
+              <div class="lab-card__number">05</div>
+              <div class="lab-card__content">
+                <p class="lab-card__type">React Router · Formik & Yup</p>
+                <h3>Điều hướng đa trang bằng URL và gửi biểu mẫu liên hệ.</h3>
+                <p>Chuyển đổi giữa Index (`/`), Natural (`/naturals`), Detail (`/detail/:id`) và Contact (`/contact`) với `React Router`, `Formik` và `Yup`.</p>
+                <ul aria-label="Kiến thức Lab 5">
+                  <li>React Router</li><li>URL Params</li><li>Contact Form</li>
+                </ul>
+                <a href="./lab5/">Mở Lab 5 <span aria-hidden="true">↗</span></a>
+              </div>
+            </article>
           </div>
         </section>
 
@@ -86,15 +114,15 @@
           <h2 id="method-title">Đọc code theo luồng dữ liệu, không theo thứ tự file.</h2>
           <div class="method__steps">
             <p><span>01</span>Bắt đầu từ hành vi người dùng hoặc dữ liệu đầu vào.</p>
-            <p><span>02</span>Theo props, event hoặc context qua từng component.</p>
+            <p><span>02</span>Theo props, event, reducer, router hoặc context qua từng component.</p>
             <p><span>03</span>Chạy test để xem yêu cầu được mô tả bằng hành vi.</p>
           </div>
         </section>
       </main>
 
       <footer>
-        <p>FER202 · React Labs 1–3</p>
-        <p>Components → State → Context & Effect</p>
+        <p>FER202 · React Labs 1–5</p>
+        <p>Components → State → Context & Effect → useReducer & Formik/Yup → React Router</p>
       </footer>
     </div>
   </body>
