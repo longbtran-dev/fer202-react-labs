@@ -1,5 +1,7 @@
 import Button from 'react-bootstrap/Button';
 
+// Component trình bày giỏ hàng: nhận dữ liệu (cartItems, summary) và các callback
+// (onUpdateQuantity, onRemoveItem, onResetDemoCart) từ App thông qua props.
 export default function ShoppingCart({
   cartItems,
   summary,
@@ -9,6 +11,7 @@ export default function ShoppingCart({
 }) {
   return (
     <section className="cart-panel" aria-labelledby="cart-heading">
+      {/* Tiêu đề khu vực giỏ hàng kèm huy hiệu tổng số sản phẩm */}
       <div className="panel-header">
         <div>
           <p className="eyebrow">Step 01 · useReducer State</p>
@@ -19,6 +22,8 @@ export default function ShoppingCart({
         </span>
       </div>
 
+      {/* Toán tử 3 ngôi: nếu giỏ trống (length === 0) thì hiện thông báo và nút khôi phục giỏ mẫu,
+          ngược lại thì dùng map() để render danh sách các món trong giỏ */}
       {cartItems.length === 0 ? (
         <div className="empty-cart">
           <p>Your cart is currently empty. Add an orchid from the catalog above or restore the sample items.</p>
@@ -28,8 +33,10 @@ export default function ShoppingCart({
         </div>
       ) : (
         <ul className="cart-list" aria-label="Products in cart">
+          {/* Duyệt qua từng phần tử trong giỏ hàng; key={item.id} giúp React định danh đúng dòng */}
           {cartItems.map((item) => (
             <li key={item.id} className="cart-item">
+              {/* Cột trái: hiển thị tên sản phẩm và đơn giá (unit price) */}
               <div className="cart-item__info">
                 <h3>{item.name}</h3>
                 <p className="cart-item__unit-price">
@@ -37,8 +44,10 @@ export default function ShoppingCart({
                 </p>
               </div>
 
+              {/* Cột phải: bộ điều chỉnh số lượng (- / ô nhập số / +), thành tiền từng dòng và nút Remove */}
               <div className="cart-item__controls">
                 <div className="quantity-stepper" role="group" aria-label={`Quantity controls for ${item.name}`}>
+                  {/* Nút giảm số lượng: bị khóa (disabled) khi số lượng đã giảm về 1 */}
                   <button
                     type="button"
                     className="qty-btn"
@@ -48,6 +57,7 @@ export default function ShoppingCart({
                   >
                     −
                   </button>
+                  {/* Ô nhập số lượng trực tiếp: gọi onUpdateQuantity mỗi khi người dùng gõ số mới */}
                   <input
                     type="number"
                     min="1"
@@ -56,6 +66,7 @@ export default function ShoppingCart({
                     value={item.quantity}
                     onChange={(event) => onUpdateQuantity(item.id, event.target.value)}
                   />
+                  {/* Nút tăng số lượng thêm 1 đơn vị */}
                   <button
                     type="button"
                     className="qty-btn"
@@ -66,10 +77,12 @@ export default function ShoppingCart({
                   </button>
                 </div>
 
+                {/* Thành tiền của riêng mặt hàng này = đơn giá * số lượng */}
                 <p className="cart-item__line-total">
                   ${(item.price * item.quantity).toFixed(2)}
                 </p>
 
+                {/* Nút xóa mặt hàng khỏi giỏ (phát sự kiện REMOVE_ITEM lên reducer) */}
                 <Button
                   variant="outline-danger"
                   size="sm"
@@ -85,6 +98,7 @@ export default function ShoppingCart({
         </ul>
       )}
 
+      {/* Phần tổng kết giỏ hàng (Cart Summary): hiển thị tổng số lượng và tổng tiền */}
       <div className="cart-summary" aria-label="Cart summary">
         <div className="cart-summary__row">
           <span>Total quantity</span>

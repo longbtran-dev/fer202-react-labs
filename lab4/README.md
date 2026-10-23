@@ -1,66 +1,69 @@
 # Lab 4 — useReducer, Formik & Yup (E-Commerce Checkout)
 
-Lab 4 xây dựng luồng **Giỏ hàng & Thanh toán (Shopping Cart & Checkout)** cho cửa hàng hoa lan bằng ba công cụ trọng tâm:
+## Mục tiêu
 
-1. **`useReducer`** để quản lý toàn bộ trạng thái giỏ hàng (thêm sản phẩm, cập nhật số lượng, xóa từng món, xóa sạch giỏ hàng sau khi đặt đơn).
-2. **`Formik`** để quản lý trạng thái biểu mẫu thanh toán (`values`, `touched`, `errors`, `isSubmitting`, `resetForm`).
-3. **`Yup`** để định nghĩa toàn bộ tập luật kiểm tra dữ liệu đầu vào (`validationSchema`).
+Lab 4 xây dựng luồng **Giỏ hàng & Thanh toán (Shopping Cart & Checkout)** cho một trang thương mại điện tử hoa lan, tập trung vào ba trụ cột kiến thức:
 
----
-
-## 1. Đáp ứng yêu cầu đề bài Lab 04
-
-| Yêu cầu đề bài | Nơi cài đặt trong source code |
-|---|---|
-| 1. Hiển thị danh sách sản phẩm trong giỏ hàng | `src/components/ShoppingCart.jsx`, dữ liệu khởi tạo tại `src/reducer/cartReducer.js` |
-| 2. Quản lý giỏ hàng bằng `useReducer` (tên, đơn giá, số lượng, nút Remove, cập nhật số lượng, tổng số lượng & tổng tiền) | `src/reducer/cartReducer.js` (`ADD_ITEM`, `UPDATE_QUANTITY`, `REMOVE_ITEM`, `CLEAR_CART`, `calculateCartSummary`) |
-| 3. Tạo Checkout Form bằng `Formik` và chỉ validate bằng `Yup` (`fullName`, `email`, `phone`, `address`, `paymentMethod`: COD/Card, `agreeTerms`) | `src/validation/checkoutSchema.js` và `src/components/CheckoutForm.jsx` |
-| 4. Khóa nút Submit khi giỏ trống; hiển thị **Order Confirmation Summary** (thông tin khách, danh sách món, tổng số lượng, tổng tiền) và xóa giỏ hàng sau khi đặt thành công | `src/App.jsx` và `src/components/OrderConfirmation.jsx` |
+1. **`useReducer`**: Quản lý trạng thái phức tạp của giỏ hàng (thêm món, tăng/giảm số lượng, xóa món, xóa sạch giỏ hàng sau khi đặt đơn) thông qua một hàm `reducer` thuần khiết.
+2. **`Formik`**: Quản lý trạng thái biểu mẫu thanh toán (`values`, `touched`, `errors`, `isSubmitting`, `resetForm`) mà không cần tạo hàng loạt `useState` rời rạc cho từng ô input.
+3. **`Yup`**: Định nghĩa toàn bộ tập luật kiểm tra dữ liệu đầu vào (`validationSchema`) tách biệt hoàn toàn khỏi giao diện JSX.
 
 ---
 
-## 2. Cấu trúc thư mục
+## Bản đồ kiến thức
 
-```text
-lab4/
-├── public/
-│   └── orchid-placeholder.svg
-├── src/
-│   ├── components/
-│   │   ├── CheckoutForm.jsx       # Formik + Yup checkout form
-│   │   ├── OrderConfirmation.jsx  # Bảng xác nhận đơn hàng sau khi submit
-│   │   ├── ProductCatalog.jsx     # Danh mục hoa lan để thêm vào giỏ
-│   │   └── ShoppingCart.jsx       # Giỏ hàng + bộ đếm số lượng + tổng tiền
-│   ├── data/
-│   │   └── products.js            # 6 mẫu hoa lan kèm đơn giá
-│   ├── reducer/
-│   │   └── cartReducer.js         # Hàm cartReducer thuần và calculateCartSummary
-│   ├── validation/
-│   │   └── checkoutSchema.js      # Yup schema cho 6 trường dữ liệu
-│   ├── test/
-│   │   └── setup.js               # Cấu hình jest-dom cho Vitest
-│   ├── App.jsx                    # Kết nối useReducer, giỏ hàng và form
-│   ├── App.test.jsx               # Test tự động cho reducer, form và luồng đặt hàng
-│   ├── main.jsx                   # Điểm vào ứng dụng
-│   └── styles.css                 # Giao diện Botanical đồng bộ
-├── index.html
-├── package.json
-└── vite.config.js
+| Kiến thức | Hiểu đơn giản | Nơi sử dụng |
+|---|---|---|
+| `useReducer(reducer, initialState)` | Hook quản lý state bằng cách gửi `action` vào hàm `reducer` | [`App.jsx`](./src/App.jsx) |
+| Pure Reducer (`cartReducer`) | Hàm nhận `(state, action)` và trả về mảng state mới (không sửa mảng cũ) | [`cartReducer.js`](./src/reducer/cartReducer.js) |
+| Action `{ type, payload }` | Bản tin mô tả việc cần làm (`type`) và dữ liệu kèm theo (`payload`) | `ADD_ITEM`, `UPDATE_QUANTITY`, `REMOVE_ITEM`, `CLEAR_CART` |
+| Derived State (`calculateCartSummary`) | Tính `totalQuantity` và `totalPrice` trực tiếp từ `cartItems` bằng `reduce()` | [`cartReducer.js`](./src/reducer/cartReducer.js) |
+| `<Formik>` | Component bọc ngoài quản lý vòng đời form (state, validate, submit) | [`CheckoutForm.jsx`](./src/components/CheckoutForm.jsx) |
+| `<Form>`, `<Field>`, `<ErrorMessage>` | Bộ component tự động nối input với Formik theo thuộc tính `name` | [`CheckoutForm.jsx`](./src/components/CheckoutForm.jsx) |
+| `Yup.object({...})` | Schema kiểm tra toàn bộ các trường của biểu mẫu | [`checkoutSchema.js`](./src/validation/checkoutSchema.js) |
+| `Yup.string().matches(regex)` | Kiểm tra chuỗi theo biểu thức chính quy (ví dụ số điện thoại 10–11 số) | [`checkoutSchema.js`](./src/validation/checkoutSchema.js) |
+| `Yup.boolean().oneOf([true])` | Bắt buộc người dùng phải đánh dấu tick vào ô checkbox điều khoản | [`checkoutSchema.js`](./src/validation/checkoutSchema.js) |
+
+---
+
+## Giải thích luồng hoạt động từng bước
+
+### Bước 1: Quản lý giỏ hàng bằng `useReducer` (`src/reducer/cartReducer.js`)
+
+Thay vì viết 4–5 hàm cập nhật mảng rải rác trong component, `useReducer` gom toàn bộ quy tắc biến đổi giỏ hàng vào một hàm duy nhất:
+
+```js
+const [cartItems, dispatch] = useReducer(cartReducer, initialCartItems);
 ```
 
+- Khi người dùng bấm nút **+** ở giỏ hàng, component gọi:
+  ```js
+  dispatch({ type: 'UPDATE_QUANTITY', payload: { id: item.id, quantity: item.quantity + 1 } });
+  ```
+- React tự động truyền `cartItems` hiện tại và `action` trên vào `cartReducer(state, action)`.
+- `cartReducer` dùng `state.map(...)` tạo ra một mảng mới với `quantity` đã cập nhật. React nhận mảng mới và render lại giao diện cùng tổng tiền mới.
+
+### Bước 2: Định nghĩa luật kiểm tra bằng `Yup` (`src/validation/checkoutSchema.js`)
+
+Đề bài yêu cầu **mọi quy tắc kiểm tra dữ liệu chỉ được xử lý bởi Yup**:
+
+- `fullName`: `.trim().min(3, ...).required(...)` — bắt buộc nhập và có ít nhất 3 ký tự.
+- `email`: `.trim().email(...).required(...)` — bắt buộc nhập và đúng cấu trúc email.
+- `phone`: `.matches(/^0\d{9,10}$/, ...).required(...)` — bắt buộc khớp chuỗi 10–11 chữ số bắt đầu bằng `0`.
+- `address`: `.trim().min(5, ...).required(...)` — bắt buộc nhập địa chỉ giao hàng.
+- `paymentMethod`: `.oneOf(['COD', 'Card'], ...).required(...)` — bắt buộc chọn `COD` hoặc `Card`.
+- `agreeTerms`: `.oneOf([true], ...)` — bắt buộc phải tick đồng ý điều khoản.
+
+### Bước 3: Kết nối Giỏ hàng và Form (`src/components/CheckoutForm.jsx` & `src/App.jsx`)
+
+1. **Khóa nút Submit khi giỏ trống:** `App.jsx` truyền `isCartEmpty={cartItems.length === 0}` xuống `CheckoutForm`. Nút `Place Order` có `disabled={isCartEmpty || isSubmitting}`.
+2. **Hiển thị xác nhận & xóa giỏ hàng:** Khi form hợp lệ, `onSubmit` của Formik gọi `handleSubmitOrder(values)` ở `App.jsx`:
+   - Lưu bản chụp đơn hàng (`customer`, `items`, `summary`) vào `confirmedOrder` để hiển thị `OrderConfirmation`.
+   - Gọi `dispatch({ type: 'CLEAR_CART' })` để làm trống giỏ hàng và `resetForm()` để làm mới biểu mẫu.
+
 ---
 
-## 3. Điểm nhấn kỹ thuật
-
-### Vì sao dùng `useReducer` cho giỏ hàng?
-Khi một state có nhiều thao tác biến đổi liên quan chặt chẽ (`ADD_ITEM`, `UPDATE_QUANTITY`, `REMOVE_ITEM`, `CLEAR_CART`), gom toàn bộ logic vào `cartReducer(state, action)` giúp:
-- Component giao diện chỉ cần phát tín hiệu `dispatch({ type, payload })`.
-- Hàm reducer là hàm thuần (pure function), có thể viết unit test trực tiếp mà không cần render DOM.
-
-### Vì sao tách `calculateCartSummary(cartItems)`?
-Tổng số lượng (`totalQuantity`) và tổng tiền (`totalPrice`) luôn được tính trực tiếp từ mảng `cartItems` thay vì lưu thêm 2 biến state riêng, tránh lỗi lệch dữ liệu khi thêm/xóa sản phẩm.
-
-### Chạy dự án & kiểm thử
+## Chạy dự án & kiểm thử
 
 ```bash
 # Từ thư mục gốc fer202-react-labs:

@@ -1,6 +1,10 @@
+// Component hiển thị bảng tóm tắt xác nhận đơn hàng (Order Confirmation Summary)
+// ngay sau khi người dùng gửi biểu mẫu thanh toán thành công.
 export default function OrderConfirmation({ order }) {
+  // Nếu chưa có đơn hàng nào được đặt (order === null) thì không render gì cả.
   if (!order) return null;
 
+  // Tách thông tin khách hàng, danh sách món đã mua, tổng kết và thời gian đặt từ prop order.
   const { customer, items, summary, submittedAt } = order;
 
   return (
@@ -14,6 +18,7 @@ export default function OrderConfirmation({ order }) {
       </div>
 
       <div className="confirmation-grid">
+        {/* Khối 1: Thông tin khách hàng vừa nhập từ Formik */}
         <div className="confirmation-card">
           <h3>Customer Information</h3>
           <dl className="confirmation-dl">
@@ -25,6 +30,7 @@ export default function OrderConfirmation({ order }) {
           </dl>
         </div>
 
+        {/* Khối 2: Danh sách sản phẩm trong đơn hàng, tổng số lượng và tổng tiền */}
         <div className="confirmation-card">
           <h3>Ordered Items</h3>
           <ul className="confirmation-items">

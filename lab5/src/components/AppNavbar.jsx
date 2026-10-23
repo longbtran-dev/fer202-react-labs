@@ -1,18 +1,24 @@
 import Button from 'react-bootstrap/Button';
+// NavLink giống Link (chuyển URL không tải lại trang) nhưng tự động cung cấp
+// biến trạng thái isActive để đánh dấu mục menu đang được mở.
 import { NavLink } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
 
 export default function AppNavbar() {
+  // Đọc trạng thái đăng nhập (user) và giao diện sáng/tối (theme) từ AuthContext.
   const { user, login, logout, theme, toggleTheme } = useAuth();
   const nextTheme = theme === 'light' ? 'dark' : 'light';
 
   return (
     <header className="app-navbar">
+      {/* Bấm vào thương hiệu sẽ điều hướng về route gốc '/' */}
       <NavLink className="app-navbar__brand" to="/" aria-label="Orchid Atlas home">
         <span aria-hidden="true">✿</span> Orchid Atlas
       </NavLink>
 
+      {/* Thanh menu điều hướng giữa 4 route của đề bài Lab 5: Index, Natural, Detail, Contact */}
       <nav className="app-navbar__links" aria-label="Primary navigation">
+        {/* Thuộc tính end giúp route '/' chỉ sáng (active) khi URL đúng bằng '/' */}
         <NavLink
           to="/"
           end
@@ -40,6 +46,7 @@ export default function AppNavbar() {
         </NavLink>
       </nav>
 
+      {/* Khu vực kế thừa từ Lab 3: Đăng nhập giả (Aaron) và chuyển đổi Dark/Light theme */}
       <div className="app-navbar__actions">
         <p>{user ? `Welcome, ${user.username}` : 'Log in as Aaron'}</p>
         <Button

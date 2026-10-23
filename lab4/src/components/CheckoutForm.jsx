@@ -1,7 +1,15 @@
+// Các component có sẵn của Formik giúp tự động kết nối input với state và hiển thị lỗi:
+// - Formik: quản lý vòng đời form (values, errors, touched, validation, submit)
+// - Form: thẻ <form> đã gắn sẵn onSubmit={handleSubmit} và onReset={handleReset}
+// - Field: tự động gắn value, onChange, onBlur dựa theo thuộc tính name="..."
+// - ErrorMessage: tự động hiển thị thông báo lỗi từ Yup khi trường đó đã chạm (touched) và có lỗi
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import Button from 'react-bootstrap/Button';
 import { checkoutInitialValues, checkoutValidationSchema } from '../validation/checkoutSchema';
 
+// Nhận 2 props từ App:
+// - isCartEmpty: boolean cho biết giỏ hàng có đang trống hay không (để khóa nút Submit)
+// - onSubmitOrder: hàm callback chạy khi form hợp lệ và người dùng gửi đơn
 export default function CheckoutForm({ isCartEmpty, onSubmitOrder }) {
   return (
     <section className="checkout-panel" aria-labelledby="checkout-heading">
@@ -12,16 +20,22 @@ export default function CheckoutForm({ isCartEmpty, onSubmitOrder }) {
         </div>
       </div>
 
+      {/* Khởi tạo Formik với giá trị ban đầu (initialValues) và bộ luật Yup (validationSchema).
+          Hàm onSubmit chỉ được Formik gọi khi TẤT CẢ các trường đều vượt qua kiểm tra của Yup. */}
       <Formik
         initialValues={checkoutInitialValues}
         validationSchema={checkoutValidationSchema}
         onSubmit={(values, { resetForm }) => {
-          onSubmitOrder(values);
-          resetForm();
+          onSubmitOrder(values); // Gửi dữ liệu khách hàng đã hợp lệ lên App
+          resetForm();           // Xóa trắng các ô input về giá trị ban đầu sau khi đặt hàng
         }}
       >
+        {/* Render prop của Formik cung cấp errors (lỗi từng trường), touched (đã chạm vào chưa)
+            và isSubmitting (đang trong quá trình gửi form) */}
         {({ errors, touched, isSubmitting }) => (
+          // noValidate tắt popup kiểm tra mặc định của trình duyệt để dùng hoàn toàn lỗi từ Yup
           <Form noValidate className="checkout-form">
+            {/* 1. Trường Full Name (bắt buộc, tối thiểu 3 ký tự) */}
             <div className="form-group">
               <label htmlFor="fullName">Full Name</label>
               <Field
@@ -31,10 +45,12 @@ export default function CheckoutForm({ isCartEmpty, onSubmitOrder }) {
                 placeholder="e.g. Nguyen Van A"
                 className={`form-control ${touched.fullName && errors.fullName ? 'is-invalid' : ''}`}
               />
+              {/* Hiển thị câu thông báo lỗi của Yup cho trường fullName nếu không hợp lệ */}
               <ErrorMessage name="fullName" component="div" className="field-error" />
             </div>
 
             <div className="form-row-two">
+              {/* 2. Trường Email (bắt buộc, đúng định dạng email) */}
               <div className="form-group">
                 <label htmlFor="email">Email Address</label>
                 <Field
@@ -47,6 +63,7 @@ export default function CheckoutForm({ isCartEmpty, onSubmitOrder }) {
                 <ErrorMessage name="email" component="div" className="field-error" />
               </div>
 
+              {/* 3. Trường Phone (bắt buộc, khớp mẫu regex 10–11 chữ số bắt đầu bằng 0) */}
               <div className="form-group">
                 <label htmlFor="phone">Phone Number</label>
                 <Field
@@ -60,6 +77,7 @@ export default function CheckoutForm({ isCartEmpty, onSubmitOrder }) {
               </div>
             </div>
 
+            {/* 4. Trường Address (bắt buộc, render dưới dạng thẻ <textarea> nhờ as="textarea") */}
             <div className="form-group">
               <label htmlFor="address">Shipping Address</label>
               <Field
@@ -73,6 +91,7 @@ export default function CheckoutForm({ isCartEmpty, onSubmitOrder }) {
               <ErrorMessage name="address" component="div" className="field-error" />
             </div>
 
+            {/* 5. Trường Payment Method: dùng 2 radio button cùng name="paymentMethod" với value COD / Card */}
             <fieldset className="form-group payment-fieldset">
               <legend>Payment Method</legend>
               <div className="payment-options">
@@ -88,6 +107,7 @@ export default function CheckoutForm({ isCartEmpty, onSubmitOrder }) {
               <ErrorMessage name="paymentMethod" component="div" className="field-error" />
             </fieldset>
 
+            {/* 6. Trường Agree Terms: checkbox bắt buộc phải được đánh dấu tick (agreeTerms === true) */}
             <div className="form-group terms-group">
               <label className="checkbox-label" htmlFor="agreeTerms">
                 <Field type="checkbox" id="agreeTerms" name="agreeTerms" />
@@ -96,12 +116,14 @@ export default function CheckoutForm({ isCartEmpty, onSubmitOrder }) {
               <ErrorMessage name="agreeTerms" component="div" className="field-error" />
             </div>
 
+            {/* Thông báo nhắc người dùng khi giỏ hàng đang trống */}
             {isCartEmpty && (
               <p className="empty-warning" role="status">
                 Add at least one product to the cart to enable order submission.
               </p>
             )}
 
+            {/* Yêu cầu đề bài: Nút Submit bắt buộc phải bị khóa (disabled) nếu giỏ hàng đang trống */}
             <Button
               type="submit"
               className="submit-order-btn"

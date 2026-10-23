@@ -1,5 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
+// BrowserRouter kết nối ứng dụng React với thanh địa chỉ URL của trình duyệt
+// thông qua HTML5 History API (pushState, replaceState, popstate).
 import { BrowserRouter } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';

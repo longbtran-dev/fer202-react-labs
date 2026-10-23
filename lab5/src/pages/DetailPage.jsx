@@ -1,15 +1,18 @@
+// useParams đọc tham số dạng /detail/:id; useSearchParams đọc query string dạng /detail?id=...
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { orchids } from '../data/ListOfOrchids';
 
 const fallbackImage = `${import.meta.env.BASE_URL}orchid-placeholder.svg`;
 
 export default function DetailPage() {
+  // 1. Lấy tham số :id từ đường dẫn động /detail/:id (ví dụ /detail/3 -> paramId = '3')
   const { id: paramId } = useParams();
+  // 2. Lấy đối tượng URLSearchParams để hỗ trợ cả trường hợp truy cập /detail?id=3
   const [searchParams] = useSearchParams();
 
-  // Hỗ trợ cả /detail/:id lẫn /detail?id=... để đáp ứng mọi cách truyền
-  // tham số qua URL khi bấm nút Detail.
+  // Ưu tiên lấy paramId từ path, nếu không có thì lấy từ query ?id=, mặc định là '1'.
   const rawId = paramId ?? searchParams.get('id') ?? '1';
+  // Tìm đúng object hoa lan trong mảng dữ liệu khớp với id trên URL.
   const orchid = orchids.find((item) => String(item.id) === String(rawId)) ?? orchids[0];
 
   function showFallback(event) {
@@ -19,6 +22,7 @@ export default function DetailPage() {
 
   return (
     <section className="detail-page" aria-label="Orchid detail">
+      {/* Thanh điều hướng phụ giúp quay về trang chủ (/) hoặc sang trang lan tự nhiên (/naturals) */}
       <div className="detail-page__top">
         <Link className="back-link" to="/">
           ← Back to Index
@@ -28,6 +32,7 @@ export default function DetailPage() {
         </Link>
       </div>
 
+      {/* Khung hiển thị đầy đủ thông tin chi tiết của loài lan được chọn */}
       <div className="detail-card">
         <div className="detail-card__media">
           <img src={orchid.image} alt={`${orchid.name} orchid detail`} onError={showFallback} />
@@ -51,6 +56,7 @@ export default function DetailPage() {
             <div><dt>Collection Tier</dt><dd>{orchid.isSpecial ? 'Special Archive' : 'Core Collection'}</dd></div>
           </dl>
 
+          {/* Bộ nút chuyển nhanh giữa các URL /detail/1, /detail/2... để dễ quan sát URL param thay đổi */}
           <div className="detail-switcher" aria-label="Switch orchid via URL parameter">
             <p>Browse another specimen via URL parameter:</p>
             <div className="detail-switcher__pills">

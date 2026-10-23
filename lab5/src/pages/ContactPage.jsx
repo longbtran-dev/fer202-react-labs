@@ -4,11 +4,13 @@ import Button from 'react-bootstrap/Button';
 import { contactInitialValues, contactValidationSchema } from '../validation/contactSchema';
 
 export default function ContactPage() {
+  // Lưu thông tin liên hệ vừa gửi thành công để hiển thị hộp thông báo xác nhận.
   const [submittedData, setSubmittedData] = useState(null);
 
   return (
     <section className="contact-page" aria-labelledby="contact-heading">
       <div className="contact-grid">
+        {/* Cột trái: Giới thiệu trang liên hệ và thông tin vườn lan */}
         <div className="contact-intro">
           <p className="eyebrow">Route: /contact · Formik & Yup</p>
           <h1 id="contact-heading">Contact the Botanical Curator</h1>
@@ -33,7 +35,9 @@ export default function ContactPage() {
           </dl>
         </div>
 
+        {/* Cột phải: Biểu mẫu liên hệ quản lý bằng Formik và kiểm tra lỗi bằng Yup */}
         <div className="contact-panel">
+          {/* Hiển thị thông báo xác nhận sau khi người dùng gửi biểu mẫu hợp lệ */}
           {submittedData && (
             <div className="contact-confirmation" role="status" aria-label="Contact confirmation">
               <h2>Message Received</h2>
@@ -44,16 +48,18 @@ export default function ContactPage() {
             </div>
           )}
 
+          {/* Formik tự động kiểm tra dữ liệu theo contactValidationSchema trước khi gọi onSubmit */}
           <Formik
             initialValues={contactInitialValues}
             validationSchema={contactValidationSchema}
             onSubmit={(values, { resetForm }) => {
-              setSubmittedData(values);
-              resetForm();
+              setSubmittedData(values); // Lưu dữ liệu vừa gửi để hiển thị lời cảm ơn
+              resetForm();              // Làm mới các trường trong form về trạng thái ban đầu
             }}
           >
             {({ errors, touched, isSubmitting }) => (
               <Form noValidate className="contact-form">
+                {/* 1. Họ và tên */}
                 <div className="form-group">
                   <label htmlFor="name">Your Name</label>
                   <Field
@@ -67,6 +73,7 @@ export default function ContactPage() {
                 </div>
 
                 <div className="form-row-two">
+                  {/* 2. Địa chỉ Email */}
                   <div className="form-group">
                     <label htmlFor="email">Email Address</label>
                     <Field
@@ -79,6 +86,7 @@ export default function ContactPage() {
                     <ErrorMessage name="email" component="div" className="field-error" />
                   </div>
 
+                  {/* 3. Số điện thoại */}
                   <div className="form-group">
                     <label htmlFor="phone">Phone Number</label>
                     <Field
@@ -92,6 +100,7 @@ export default function ContactPage() {
                   </div>
                 </div>
 
+                {/* 4. Chủ đề liên hệ (render thẻ <select> bằng as="select") */}
                 <div className="form-group">
                   <label htmlFor="topic">Inquiry Topic</label>
                   <Field
@@ -108,6 +117,7 @@ export default function ContactPage() {
                   <ErrorMessage name="topic" component="div" className="field-error" />
                 </div>
 
+                {/* 5. Nội dung tin nhắn (render thẻ <textarea> bằng as="textarea") */}
                 <div className="form-group">
                   <label htmlFor="message">Your Message</label>
                   <Field
@@ -121,6 +131,7 @@ export default function ContactPage() {
                   <ErrorMessage name="message" component="div" className="field-error" />
                 </div>
 
+                {/* 6. Checkbox đồng ý điều khoản và chính sách bảo mật */}
                 <div className="form-group">
                   <label className="checkbox-label" htmlFor="agree">
                     <Field type="checkbox" id="agree" name="agree" />
